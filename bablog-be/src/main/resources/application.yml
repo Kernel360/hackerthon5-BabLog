@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: bablog-be
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/bablog_db
+    username: root
+    password: bablog2513
+    driver-class-name: com.mysql.cj.jdbc.Driver
