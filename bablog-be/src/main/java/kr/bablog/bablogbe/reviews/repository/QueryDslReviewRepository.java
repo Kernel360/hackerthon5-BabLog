@@ -2,6 +2,8 @@ package kr.bablog.bablogbe.reviews.repository;
 
 import static kr.bablog.bablogbe.reviews.domain.QReview.review;
 
+import java.util.Optional;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +43,14 @@ public class QueryDslReviewRepository implements ReviewRepository {
 		} catch (ConstraintViolationException exception) {
 			throw new ReviewCreateException(ReviewErrorType.REVIEW_CREATE_CONSTRAINT);
 		}
+	}
+
+	@Override
+	public Optional<Review> findEntityById(final Long reviewId) {
+		final Review findReview = queryFactory.selectFrom(review)
+			.where(review.id.eq(reviewId))
+			.fetchOne();
+
+		return Optional.ofNullable(findReview);
 	}
 }
