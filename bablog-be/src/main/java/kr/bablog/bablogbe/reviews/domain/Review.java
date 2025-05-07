@@ -9,10 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+
 import kr.bablog.bablogbe.reviews.service.errors.ReviewErrorType;
 import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewCommentEmptyException;
+
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @Entity
