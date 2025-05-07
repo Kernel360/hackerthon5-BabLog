@@ -1,0 +1,82 @@
+.login-container {
+  max-width: 600px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 700px;
+}
+
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.login-label {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.login-input {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 32px;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+
+.login-input::placeholder {
+  color: #ccc;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 18px 0;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 60px;
+  margin-bottom: 48px;
+}
+
+.login-guide-container {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+}
+
+.login-guide-link {
+  margin-left: 8px;
+  color: #8e4747;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-guide-link:hover {
+  color: #000;
+}
+
+.signup-guide-container {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
