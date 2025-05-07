@@ -9,7 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import kr.bablog.bablogbe.reviews.service.errors.ReviewErrorType;
+import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewCommentEmptyException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -17,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(uniqueConstraints = {
 	@UniqueConstraint(columnNames = {"postId", "userId"})
 })
+@Getter
 public class Review {
 
 	@Id
@@ -47,4 +51,10 @@ public class Review {
 		return new Review(postId, userId, comment, reviewLike);
 	}
 
+	public void updateComment(final String inputComment) {
+		if (inputComment == null || inputComment.isEmpty()) {
+			throw new ReviewCommentEmptyException(ReviewErrorType.REVIEW_COMMENT_EMPTY);
+		}
+		this.comment = inputComment;
+	}
 }
