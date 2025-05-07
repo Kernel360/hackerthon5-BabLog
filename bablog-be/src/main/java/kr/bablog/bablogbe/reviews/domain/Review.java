@@ -1,6 +1,10 @@
 package kr.bablog.bablogbe.reviews.domain;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,13 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-
 import kr.bablog.bablogbe.reviews.service.errors.ReviewErrorType;
 import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewCommentEmptyException;
-
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -42,6 +43,14 @@ public class Review {
 	@Column(nullable = false)
 	@ColumnDefault("0")
 	private boolean reviewLike;
+
+	@CreationTimestamp
+	@Column(nullable = false, columnDefinition = "timestamp")
+	private LocalDateTime createdAt;
+
+	@UpdateTimestamp
+	@Column(nullable = false, columnDefinition = "timestamp")
+	private LocalDateTime modifiedAt;
 
 	private Review(final Long postId, final Long userId, final String comment, final boolean reviewLike) {
 		this.postId = postId;
