@@ -1,6 +1,7 @@
 package kr.bablog.bablogbe.reviews.repository;
 
 import static kr.bablog.bablogbe.reviews.domain.QReview.review;
+import static kr.bablog.bablogbe.users.domain.QUser.user;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,9 +63,10 @@ public class QueryDslReviewRepository implements ReviewRepository {
 		return queryFactory.select(Projections.constructor(ReviewLookupResponse.class,
 				review.id,
 				review.comment,
-				review.userId,
+				user.email,
 				review.reviewLike))
 			.from(review)
+			.innerJoin(user).on(review.userId.eq(user.id))
 			.where(review.postId.eq(postId))
 			.offset(offset)
 			.limit(limit)

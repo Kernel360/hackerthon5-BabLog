@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,8 +54,8 @@ public class ReviewController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(reviewCreateWebResponse));
 	}
 
-	@PatchMapping("/reviews/comment")
-	public ResponseEntity<ApiResponse<ReviewCommentUpdateWebResponse>> updateReviewComment(
+	@PostMapping("/reviews/comment")
+	public ResponseEntity<ApiResponse<ReviewCommentUpdateWebResponse>> getReviewComments(
 		LoginUser loginUser,
 		@RequestBody final ReviewCommentUpdateWebRequest reviewCreateWebRequest) {
 
@@ -75,7 +74,7 @@ public class ReviewController {
 	}
 
 	@GetMapping("/posts/{postId}/reviews")
-	public ResponseEntity<ApiResponse<ReviewLookUpWebResponses>> updateReviewComment(
+	public ResponseEntity<ApiResponse<ReviewLookUpWebResponses>> getReviewComments(
 		@PathVariable(name = "postId") final Long postId,
 		@RequestParam(name = "offset", defaultValue = "0") int offset,
 		@RequestParam(name = "size", defaultValue = "10") int size) {
