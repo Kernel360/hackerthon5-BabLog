@@ -1,6 +1,6 @@
 package kr.bablog.bablogbe.users.repository;
 
-import kr.bablog.bablogbe.users.DTO.User;
+import kr.bablog.bablogbe.users.dto.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package kr.bablog.bablogbe.users.DTO;
+package kr.bablog.bablogbe.users.dto;
 
 import lombok.*;
 
