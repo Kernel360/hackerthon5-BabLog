@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import Post from '../components/Post';
-import '../styles/Post.css';
+import React, { useState } from "react";
+import Post from "../components/Post";
+import "../styles/Post.css";
 
 const allPosts = [
-  { image: '이미지URL1', title: '맛집1' },
-  { image: '이미지URL2', title: '맛집2' },
-  { image: '이미지URL2', title: '맛집3' },
-  { image: '이미지URL2', title: '맛집5' },
-  { image: '이미지URL2', title: '맛집6' },
-  { image: '이미지URL2', title: '맛집7' },
-  { image: '이미지URL2', title: '맛집8' },
-  { image: '이미지URL2', title: '맛집9' },
-  { image: '이미지URL2', title: '맛집10' },
-  { image: '이미지URL2', title: '맛집11' },
-  { image: '이미지URL2', title: '맛집12' },
+  { postId: 1, image: "이미지URL1", title: "맛집1" },
+  { postId: 2, image: "이미지URL2", title: "맛집2" },
+  { postId: 3, image: "이미지URL2", title: "맛집3" },
+  { postId: 4, image: "이미지URL2", title: "맛집5" },
+  { postId: 5, image: "이미지URL2", title: "맛집6" },
+  { postId: 6, image: "이미지URL2", title: "맛집7" },
+  { postId: 7, image: "이미지URL2", title: "맛집8" },
+  { postId: 8, image: "이미지URL2", title: "맛집9" },
+  { postId: 9, image: "이미지URL2", title: "맛집10" },
+  { postId: 10, image: "이미지URL2", title: "맛집11" },
+  { postId: 11, image: "이미지URL2", title: "맛집12" },
 ];
 
 const POSTS_PER_PAGE = 9;
@@ -24,21 +24,26 @@ function Posts() {
 
   const currentPosts = allPosts.slice(
     (page - 1) * POSTS_PER_PAGE,
-    page * POSTS_PER_PAGE,
+    page * POSTS_PER_PAGE
   );
 
   return (
     <div className="post-container">
       <h1 className="post-title">맛집 리스트</h1>
       <div className="post-grid">
-        {currentPosts.map((post, idx) => (
-          <Post key={idx} image={post.image} title={post.title} />
+        {currentPosts.map((post) => (
+          <Post
+            key={post.postId}
+            postId={post.postId} // ← 반드시 추가!
+            image={post.image}
+            title={post.title}
+          />
         ))}
       </div>
       <div className="pagination">
         <span
-          onClick={() => setPage(p => Math.max(1, p - 1))}
-          style={{ cursor: 'pointer', marginRight: 10 }}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          style={{ cursor: "pointer", marginRight: 10 }}
         >
           &lt; 이전
         </span>
@@ -47,8 +52,8 @@ function Posts() {
             key={i}
             className="page-num"
             style={{
-              fontWeight: page === i + 1 ? 'bold' : 'normal',
-              color: page === i + 1 ? '#2196f3' : undefined,
+              fontWeight: page === i + 1 ? "bold" : "normal",
+              color: page === i + 1 ? "#2196f3" : undefined,
             }}
             onClick={() => setPage(i + 1)}
           >
@@ -56,8 +61,8 @@ function Posts() {
           </span>
         ))}
         <span
-          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-          style={{ cursor: 'pointer', marginLeft: 10 }}
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          style={{ cursor: "pointer", marginLeft: 10 }}
         >
           다음 &gt;
         </span>
