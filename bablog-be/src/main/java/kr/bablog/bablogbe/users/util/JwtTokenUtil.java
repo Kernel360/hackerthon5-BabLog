@@ -1,4 +1,4 @@
-package kr.bablog.bablogbe.LoginUser.util;
+package kr.bablog.bablogbe.users.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

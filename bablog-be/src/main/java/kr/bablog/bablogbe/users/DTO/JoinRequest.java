@@ -1,4 +1,4 @@
-package kr.bablog.bablogbe.LoginUser.DTO;
+package kr.bablog.bablogbe.users.DTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
