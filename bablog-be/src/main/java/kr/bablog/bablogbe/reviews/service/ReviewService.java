@@ -34,6 +34,7 @@ public class ReviewService {
 		return reviewRepository.save(reviewCreateWebRequest.toServiceRequest());
 	}
 
+	// TODO 본인이 작성한 리뷰에 한해서 코멘트 변경 기능
 	@Transactional
 	public ReviewCommentUpdateResponse updateComment(final ReviewCommentUpdateRequest reviewCommentUpdateRequest) {
 		final Long inputReviewId = reviewCommentUpdateRequest.reviewId();
@@ -56,5 +57,21 @@ public class ReviewService {
 		final Long reviewLikeCount = reviewRepository.countReviewLikeByPostId(postId);
 
 		return new ReviewLookupResponses(reviewLookupResponses, reviewCount, reviewLikeCount);
+	}
+
+	/**
+	 *
+	 * @param reviewId 삭제할 리뷰 아이디
+	 * @return 삭제한 리뷰 아이디 반환
+	 */
+	// TODO 본인이 작성한 리뷰에 한해서 삭제 기능 + 본인이 아닌 경우 예외 반환 로직 추가
+	@Transactional
+	public Long deleteReview(final Long reviewId) {
+		final Review review = reviewRepository.findEntityById(reviewId)
+			.orElseThrow(() -> new ReviewNotFoundException(ReviewErrorType.REVIEW_NOT_FOUND));
+
+		reviewRepository.deleteById(review.getId());
+
+		return review.getId();
 	}
 }

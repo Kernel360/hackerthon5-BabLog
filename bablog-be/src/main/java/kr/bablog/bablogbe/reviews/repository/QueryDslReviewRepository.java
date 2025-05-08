@@ -87,4 +87,9 @@ public class QueryDslReviewRepository implements ReviewRepository {
 			.where(review.postId.eq(postId).and(review.reviewLike.eq(Boolean.TRUE)))
 			.fetchOne();
 	}
+
+	@Override
+	public void deleteById(final Long reviewId) {
+		jpaReviewRepository.deleteById(reviewId);
+	}
 }

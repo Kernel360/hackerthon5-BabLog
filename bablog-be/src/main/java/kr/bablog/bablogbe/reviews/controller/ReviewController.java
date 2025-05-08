@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import kr.bablog.bablogbe.reviews.controller.dto.request.ReviewCommentUpdateWebR
 import kr.bablog.bablogbe.reviews.controller.dto.request.ReviewCreateWebRequest;
 import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewCommentUpdateWebResponse;
 import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewCreateWebResponse;
+import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewDeleteWebResponse;
 import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewLookUpWebResponse;
 import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewLookUpWebResponses;
 import kr.bablog.bablogbe.reviews.service.ReviewService;
@@ -74,7 +76,8 @@ public class ReviewController {
 			throw new ReviewInvalidRequestException(ReviewErrorType.REVIEW_INVALID_SIZE);
 		}
 
-		final ReviewLookupResponses reviewLookupResponses = reviewService.findPagedReviewsByPostId(postId, offset, size);
+		final ReviewLookupResponses reviewLookupResponses = reviewService.findPagedReviewsByPostId(postId, offset,
+			size);
 
 		final List<ReviewLookUpWebResponse> reviewLookUpWebResponses =
 			reviewLookupResponses.reviewLookupResponses().stream()
@@ -83,5 +86,14 @@ public class ReviewController {
 
 		return ResponseEntity.ok(ApiResponse.success(new ReviewLookUpWebResponses(reviewLookUpWebResponses,
 			reviewLookupResponses.reviewCount(), reviewLookupResponses.likeCount())));
+	}
+
+	// TODO 본인이 작성한 리뷰에 한해서 코멘트 삭제 기능 추가
+	@DeleteMapping("/reviews/{reviewId}")
+	public ResponseEntity<ApiResponse<ReviewDeleteWebResponse>> deleteReview(
+		@PathVariable(name = "reviewId") final Long reviewId) {
+		Long deleteReviewId = reviewService.deleteReview(reviewId);
+		final ReviewDeleteWebResponse reviewDeleteWebResponse = new ReviewDeleteWebResponse(deleteReviewId);
+		return ResponseEntity.ok(ApiResponse.success(reviewDeleteWebResponse));
 	}
 }

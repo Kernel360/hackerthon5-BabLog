@@ -15,4 +15,5 @@ public interface ReviewRepository {
 	List<ReviewLookupResponse> findPagedReviewsByPostId(Long postId, int offset, int limit);
 	Long countReviewByPostId(Long postId);
 	Long countReviewLikeByPostId(Long postId);
+	void deleteById(Long reviewId);
 }
