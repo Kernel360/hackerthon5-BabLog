@@ -1,8 +1,8 @@
-package kr.bablog.bablogbe.LoginUser.controller;
+package kr.bablog.bablogbe.users.controller;
 
-import kr.bablog.bablogbe.LoginUser.DTO.User;
-import kr.bablog.bablogbe.LoginUser.repository.UserRepository;
-import kr.bablog.bablogbe.LoginUser.util.JwtTokenUtil;
+import kr.bablog.bablogbe.users.DTO.User;
+import kr.bablog.bablogbe.users.repository.UserRepository;
+import kr.bablog.bablogbe.users.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
