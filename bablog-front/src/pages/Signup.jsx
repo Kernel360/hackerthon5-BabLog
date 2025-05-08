@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../styles/Signup.css';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -8,52 +8,44 @@ export default function App() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setErrorMessage(
         '비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.',
       );
-    } else {
-      setErrorMessage('');
-      // 여기에 회원가입 처리 로직 추가 (API 호출 등)
-      alert('회원가입 성공!');
+      return;
+    }
+
+    setErrorMessage('');
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        },
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        setErrorMessage(data.message || '회원가입에 실패했습니다.');
+      } else {
+        alert('회원가입이 완료되었습니다!');
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('서버 오류가 발생했습니다.');
     }
   }
-
-  // async function handleSubmit(e){
-  //   e.preventDefault();
-
-  //   if (password !== confirmPassword) {
-  //     setErrorMessage("비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.");
-  //     return;
-  //   }
-
-  //   setErrorMessage("");
-
-  //   try {
-  //     const response = await fetch("/api/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ email, password }),
-  //     });
-
-  //     if (!response.ok) {
-  //       const data = await response.json();
-  //       setErrorMessage(data.message || "회원가입에 실패했습니다.");
-  //     } else {
-  //       alert("회원가입이 완료되었습니다!");
-  //       navigate("/login");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     setErrorMessage("서버 오류가 발생했습니다.");
-  //   }
-  // };
 
   return (
     <>

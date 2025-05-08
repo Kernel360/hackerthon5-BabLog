@@ -23,7 +23,7 @@ const ReviewSection = ({ postId }) => {
     try {
       const offset = (page - 1) * REVIEWS_PER_PAGE;
       const res = await fetch(
-        `/api/posts/${postId}/reviews?offset=${offset}&size=${REVIEWS_PER_PAGE}`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/posts/${postId}/reviews?offset=${offset}&size=${REVIEWS_PER_PAGE}`,
         { headers: { 'Content-Type': 'application/json' } },
       );
       const result = await res.json();
@@ -145,11 +145,14 @@ const ReviewSection = ({ postId }) => {
       return;
     }
     try {
-      const res = await fetch('/api/reviews', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reviewId, comment: newComment }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reviewId, comment: newComment }),
+        },
+      );
       const data = await res.json();
       if (res.ok && data.result === 'SUCCESS') {
         alert('리뷰가 수정되었습니다.');
@@ -164,11 +167,14 @@ const ReviewSection = ({ postId }) => {
 
   const handleDeleteReview = async reviewId => {
     try {
-      const res = await fetch('/api/reviews', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reviewId }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
+        {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reviewId }),
+        },
+      );
       const data = await res.json();
       if (res.ok && data.result === 'SUCCESS') {
         alert('리뷰가 삭제되었습니다.');

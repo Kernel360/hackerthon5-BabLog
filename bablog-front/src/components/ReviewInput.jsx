@@ -14,16 +14,19 @@ const ReviewInput = ({ postId, userId, onReviewSuccess }) => {
     if (!review.trim()) return;
 
     try {
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          postId,
-          userId,
-          comment: review,
-          reviewLike: liked,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            postId,
+            userId,
+            comment: review,
+            reviewLike: liked,
+          }),
+        },
+      );
       const data = await res.json();
       if (res.status === 201 && data.result === 'SUCCESS') {
         setReview('');
