@@ -35,8 +35,7 @@ public class PostController {
                 .map(post -> new PostResponseDto(post.getId()
                         , post.getTitle()
                         , post.getAddress()
-                        , post.getImgUrl()
-                        , post.getCreatedAt()))
+                        , post.getImgUrl()))
                 .collect(Collectors.toList());
 
         PostListResponseDto postListResponseDto = new PostListResponseDto(postListDto
@@ -58,8 +57,7 @@ public class PostController {
                 post.getId()
                 , post.getTitle()
                 , post.getAddress()
-                , post.getImgUrl()
-                , post.getCreatedAt());
+                , post.getImgUrl());
 
         return ApiResponse.success(postResponseDto);
     }
