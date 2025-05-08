@@ -1,72 +1,117 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Post from "../components/Post";
+import Pagination from "../components/Pagination";
 import "../styles/Post.css";
 
-const allPosts = [
-  { postId: 1, image: "이미지URL1", title: "맛집1" },
-  { postId: 2, image: "이미지URL2", title: "맛집2" },
-  { postId: 3, image: "이미지URL2", title: "맛집3" },
-  { postId: 4, image: "이미지URL2", title: "맛집5" },
-  { postId: 5, image: "이미지URL2", title: "맛집6" },
-  { postId: 6, image: "이미지URL2", title: "맛집7" },
-  { postId: 7, image: "이미지URL2", title: "맛집8" },
-  { postId: 8, image: "이미지URL2", title: "맛집9" },
-  { postId: 9, image: "이미지URL2", title: "맛집10" },
-  { postId: 10, image: "이미지URL2", title: "맛집11" },
-  { postId: 11, image: "이미지URL2", title: "맛집12" },
-];
-
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 9; // 한 페이지에 보여줄 맛집 수
 
 function Posts() {
+  const [posts, setPosts] = useState([]);
+  const [totalPostCount, setTotalPostCount] = useState(0);
+  const [backendTotalPages, setBackendTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const currentPosts = allPosts.slice(
-    (page - 1) * POSTS_PER_PAGE,
-    page * POSTS_PER_PAGE
-  );
+  const totalPages = Math.ceil(totalPostCount / POSTS_PER_PAGE);
+
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const offset = (page - 1) * POSTS_PER_PAGE;
+
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/posts?offset=${offset}&size=${POSTS_PER_PAGE}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.result === "SUCCESS" && result.data) {
+        const rawPosts = result.data.contents || [];
+
+        const formattedPosts = rawPosts.map((backendPost) => ({
+          postId: backendPost.postId,
+          title: backendPost.title,
+          image: backendPost.imgUrl,
+        }));
+
+        setPosts(formattedPosts);
+        setTotalPostCount(result.data.totalElements);
+        setBackendTotalPages(result.data.totalPages);
+      } else {
+        setError(
+          result.error?.message || "맛집 목록을 가져오는데 실패했습니다."
+        );
+        setPosts([]);
+        setTotalPostCount(0);
+      }
+    } catch (err) {
+      console.error("Fetch posts error:", err);
+      setError("네트워크 오류가 발생했거나 서버에 연결할 수 없습니다.");
+      setPosts([]);
+      setTotalPostCount(0);
+    } finally {
+      setLoading(false);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  if (loading) {
+    return (
+      <div
+        className="post-container"
+        style={{ textAlign: "center", padding: "50px" }}
+      >
+        <h1 className="post-title">맛집 리스트</h1>
+        <p>맛집 목록을 불러오는 중입니다...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        className="post-container"
+        style={{ textAlign: "center", padding: "50px", color: "red" }}
+      >
+        <h1 className="post-title">맛집 리스트</h1>
+        <p>오류: {error}</p>
+        <button onClick={fetchPosts} style={{ marginTop: "10px" }}>
+          다시 시도
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="post-container">
       <h1 className="post-title">맛집 리스트</h1>
-      <div className="post-grid">
-        {currentPosts.map((post) => (
-          <Post
-            key={post.postId}
-            postId={post.postId} // ← 반드시 추가!
-            image={post.image}
-            title={post.title}
-          />
-        ))}
-      </div>
-      <div className="pagination">
-        <span
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          style={{ cursor: "pointer", marginRight: 10 }}
-        >
-          &lt; 이전
-        </span>
-        {[...Array(totalPages)].map((_, i) => (
-          <span
-            key={i}
-            className="page-num"
-            style={{
-              fontWeight: page === i + 1 ? "bold" : "normal",
-              color: page === i + 1 ? "#2196f3" : undefined,
-            }}
-            onClick={() => setPage(i + 1)}
-          >
-            {i + 1}
-          </span>
-        ))}
-        <span
-          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-          style={{ cursor: "pointer", marginLeft: 10 }}
-        >
-          다음 &gt;
-        </span>
-      </div>
+      {posts.length === 0 ? (
+        <p style={{ textAlign: "center" }}>표시할 맛집 정보가 없습니다.</p>
+      ) : (
+        <div className="post-grid">
+          {posts.map((post) => (
+            <Post
+              key={post.postId}
+              postId={post.postId}
+              image={post.image}
+              title={post.title}
+            />
+          ))}
+        </div>
+      )}
+      {totalPages > 1 && (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
+      )}
     </div>
   );
 }
