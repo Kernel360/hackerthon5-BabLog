@@ -18,8 +18,9 @@ public class JwtTokenUtil {
     private long expirationMs;
 
     // JWT Token 발급
-    public String createToken(String email) {
+    public String createToken(final Long userId, final String email) {
         Claims claims = Jwts.claims();
+        claims.put("userId", userId);
         claims.put("email", email);
 
         return Jwts.builder()
@@ -41,10 +42,11 @@ public class JwtTokenUtil {
     }
 
     // Claim 추출
-    private Claims extractClaims(String token) {
+    public Claims extractClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
     }
+
 }
