@@ -1,25 +1,25 @@
-import { useState } from "react";
-import "../styles/Signup.css";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import '../styles/Signup.css';
+// import { useNavigate } from "react-router-dom";
 
 export default function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (password !== confirmPassword) {
       setErrorMessage(
-        "비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요."
+        '비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.',
       );
     } else {
-      setErrorMessage("");
+      setErrorMessage('');
       // 여기에 회원가입 처리 로직 추가 (API 호출 등)
-      alert("회원가입 성공!");
+      alert('회원가입 성공!');
     }
   }
 
@@ -66,7 +66,7 @@ export default function App() {
             className="signup-input"
             placeholder="이메일 주소를 입력해주세요"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
           <label className="signup-label">비밀번호</label>
@@ -75,7 +75,7 @@ export default function App() {
             className="signup-input"
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
           <label className="signup-label">비밀번호 확인</label>
@@ -84,14 +84,14 @@ export default function App() {
             className="signup-input"
             placeholder="비밀번호를 다시 입력해주세요"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
             required
           />
 
           {errorMessage && (
             <p
               className="signup-error-message"
-              style={{ color: "red", whiteSpace: "pre-line" }}
+              style={{ color: 'red', whiteSpace: 'pre-line' }}
             >
               {errorMessage}
             </p>
