@@ -1,6 +1,6 @@
 package kr.bablog.bablogbe.users.controller;
 
-import kr.bablog.bablogbe.users.DTO.User;
+import kr.bablog.bablogbe.users.dto.User;
 import kr.bablog.bablogbe.users.repository.UserRepository;
 import kr.bablog.bablogbe.users.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
