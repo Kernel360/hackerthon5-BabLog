@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp as faSolidThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp as faRegularThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { getAuthHeader } from '../utils/auth.js'
 
 const ReviewInput = ({ postId, userId, onReviewSuccess }) => {
   const [review, setReview] = useState('');
@@ -14,11 +15,12 @@ const ReviewInput = ({ postId, userId, onReviewSuccess }) => {
     if (!review.trim()) return;
 
     try {
+      let headers = { 'Content-Type': 'application/json', ...getAuthHeader() };
       const res = await fetch(
         `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({
             postId,
             userId,
@@ -27,7 +29,9 @@ const ReviewInput = ({ postId, userId, onReviewSuccess }) => {
           }),
         },
       );
+
       const data = await res.json();
+      console.log(data)
       if (res.status === 201 && data.result === 'SUCCESS') {
         setReview('');
         setLiked(false);

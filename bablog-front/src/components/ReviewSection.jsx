@@ -3,7 +3,8 @@ import ReviewList from './ReviewList';
 import Pagination from './Pagination';
 import ReviewInput from './ReviewInput';
 import ReviewStatusSection from './ReviewStatusSection';
-// import { getEmailFromToken } from '../utils/jwt';
+import { getAuthHeader } from '../utils/auth.js'
+import { getEmailFromToken } from '../utils/jwt';
 
 const REVIEWS_PER_PAGE = 10;
 
@@ -14,17 +15,17 @@ const ReviewSection = ({ postId }) => {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(totalCount / REVIEWS_PER_PAGE);
 
-  // const token = localStorage.getItem('token');
-  // const currentUserEmail = getEmailFromToken(token);
+  const token = localStorage.getItem('token');
+  const currentUserEmail = getEmailFromToken(token);
 
-  const currentUserEmail = 'test@naver.com'; // 임시 이메일
+  // const currentUserEmail = 'test@naver.com'; // 임시 이메일
 
   const fetchReviews = useCallback(async () => {
     try {
       const offset = (page - 1) * REVIEWS_PER_PAGE;
       const res = await fetch(
         `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/posts/${postId}/reviews?offset=${offset}&size=${REVIEWS_PER_PAGE}`,
-        { headers: { 'Content-Type': 'application/json' } },
+        { headers: { 'Content-Type': 'application/json', ...getAuthHeader() }},
       );
       const result = await res.json();
       console.log(result)
@@ -151,7 +152,7 @@ const ReviewSection = ({ postId }) => {
         `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
         {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
           body: JSON.stringify({ reviewId, comment: newComment }),
         },
       );
@@ -170,11 +171,11 @@ const ReviewSection = ({ postId }) => {
   const handleDeleteReview = async reviewId => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/reviews/${reviewId}`,
         {
           method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ reviewId }),
+          headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+          // body: JSON.stringify({ reviewId }),
         },
       );
       const data = await res.json();
@@ -199,7 +200,11 @@ const ReviewSection = ({ postId }) => {
         onDelete={handleDeleteReview}
       />
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
-      <ReviewInput />
+      <ReviewInput
+        postId={postId}
+        userId={currentUserEmail}
+        onReviewSuccess={fetchReviews}
+      />
     </section>
   );
 };
