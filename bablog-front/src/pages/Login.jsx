@@ -1,25 +1,43 @@
-import { useState } from 'react';
-import '../styles/Login.css';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from "react";
+import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit() {
-    const response = await axios.post(
-      `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/auth/login`,
-      {
-        email,
-        password,
-      },
-    );
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
 
-    const { token } = response.data;
-    localStorage.setItem('token', token);
-    navigate('/post');
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      navigate("/post");
+    } catch (error) {
+      console.error("Login failed", error);
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    }
+
+    // const response = await axios.post(
+    //   `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/auth/login`,
+    //   {
+    //     email,
+    //     password,
+    //   }
+    // );
+
+    // const { token } = response.data;
+    // localStorage.setItem("token", token);
+    // navigate("/post");
   }
 
   return (
@@ -34,7 +52,7 @@ function Login() {
             className="signup-input"
             placeholder="이메일 주소를 입력해주세요"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <label className="signup-label">비밀번호</label>
@@ -43,7 +61,7 @@ function Login() {
             className="signup-input"
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
 

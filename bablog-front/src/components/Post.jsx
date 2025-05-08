@@ -1,12 +1,15 @@
 import React from "react";
 import "../styles/Post.css";
+import { Link } from "react-router-dom";
 
-function Post({ image, title }) {
+function Post({ postId, image, title }) {
   return (
-    <div className="post-item">
-      <img src={image} alt={title} className="post-image" />
-      <div className="post-name">{title}</div>
-    </div>
+    <Link to={`/post/${postId}`}>
+      <div className="post-item">
+        <img src={image} alt={title} className="post-image" />
+        <div className="post-name">{title}</div>
+      </div>
+    </Link>
   );
 }
 
