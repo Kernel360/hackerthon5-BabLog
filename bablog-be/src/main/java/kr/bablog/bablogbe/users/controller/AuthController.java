@@ -1,9 +1,14 @@
 package kr.bablog.bablogbe.users.controller;
 
-import kr.bablog.bablogbe.users.dto.User;
+import kr.bablog.bablogbe.common.api.response.ApiResponse;
+import kr.bablog.bablogbe.users.controller.dto.request.UserCreateWebRequest;
+import kr.bablog.bablogbe.users.domain.User;
 import kr.bablog.bablogbe.users.repository.UserRepository;
+import kr.bablog.bablogbe.users.service.UserService;
 import kr.bablog.bablogbe.users.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +22,14 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
 
     // 회원가입
     @PostMapping("/signup")
-    public String signup(@RequestBody User user) {
-        userRepository.save(user);
-        return "회원가입 성공!";
+    public ResponseEntity<ApiResponse<Void>> signup(@RequestBody final UserCreateWebRequest userCreateWebRequest) {
+        userService.createUser(userCreateWebRequest.getEmail(), userCreateWebRequest.getPassword());
+        return ResponseEntity.ok(ApiResponse.success(null));
     }
 
     // 로그인
