@@ -103,8 +103,9 @@ public class ReviewController {
 	// TODO 본인이 작성한 리뷰에 한해서 코멘트 삭제 기능 추가
 	@DeleteMapping("/reviews/{reviewId}")
 	public ResponseEntity<ApiResponse<ReviewDeleteWebResponse>> deleteReview(
+		LoginUser loginUser,
 		@PathVariable(name = "reviewId") final Long reviewId) {
-		Long deleteReviewId = reviewService.deleteReview(reviewId);
+		Long deleteReviewId = reviewService.deleteReview(reviewId, loginUser.userId());
 		final ReviewDeleteWebResponse reviewDeleteWebResponse = new ReviewDeleteWebResponse(deleteReviewId);
 		return ResponseEntity.ok(ApiResponse.success(reviewDeleteWebResponse));
 	}
