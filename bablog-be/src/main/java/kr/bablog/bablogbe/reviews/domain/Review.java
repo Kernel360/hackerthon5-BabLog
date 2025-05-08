@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import kr.bablog.bablogbe.reviews.service.errors.ReviewErrorType;
 import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewCommentEmptyException;
+import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewInvalidUpdateException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -63,10 +64,15 @@ public class Review {
 		return new Review(postId, userId, comment, reviewLike);
 	}
 
-	public void updateComment(final String inputComment) {
+	public void updateComment(final String inputComment, final Long userId) {
 		if (inputComment == null || inputComment.isEmpty()) {
 			throw new ReviewCommentEmptyException(ReviewErrorType.REVIEW_COMMENT_EMPTY);
 		}
+
+		if (!this.userId.equals(userId)) {
+			throw new ReviewInvalidUpdateException(ReviewErrorType.REVIEW_INVALID_UPDATE);
+		}
+
 		this.comment = inputComment;
 	}
 }
