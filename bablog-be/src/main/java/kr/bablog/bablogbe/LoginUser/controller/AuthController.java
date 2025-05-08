@@ -4,8 +4,6 @@ import kr.bablog.bablogbe.LoginUser.DTO.User;
 import kr.bablog.bablogbe.LoginUser.repository.UserRepository;
 import kr.bablog.bablogbe.LoginUser.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +18,10 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
-    //private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // 회원가입
     @PostMapping("/signup")
     public String signup(@RequestBody User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "회원가입 성공!";
     }
