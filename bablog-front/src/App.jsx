@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
-import Posts from "./components/Posts";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Posts from './pages/Posts';
+import Detail from './pages/Detail';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<>{/* 로그인 페이지 */}</>} />
         <Route
           path="/post"
           element={
@@ -23,11 +23,11 @@ function App() {
           element={
             <>
               <Header />
+              <Detail />
             </>
           }
         />
         <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
       </Routes>
     </Router>
