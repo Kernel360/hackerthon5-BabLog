@@ -1,4 +1,4 @@
-package kr.bablog.bablogbe.users.data;
+package kr.bablog.bablogbe.common.api.data;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
