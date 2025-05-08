@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Detail from './pages/Detail';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Posts from "./components/Posts";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           element={
             <>
               <Header />
-              {/* 맛집 리스트 페이지 */}
+              <Posts />
             </>
           }
         />
@@ -23,7 +23,6 @@ function App() {
           element={
             <>
               <Header />
-              <Detail />
             </>
           }
         />
