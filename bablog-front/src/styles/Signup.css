@@ -52,3 +52,13 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+.signup-btn:hover {
+  background: #222;
+}
+
+.signup-error-message {
+  color: red;
+  white-space: pre-line;
+  font-size: 0.85rem;
+}
