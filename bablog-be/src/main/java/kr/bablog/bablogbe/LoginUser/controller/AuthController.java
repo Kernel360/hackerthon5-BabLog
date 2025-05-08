@@ -20,7 +20,7 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    //private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // 회원가입
     @PostMapping("/signup")
@@ -35,7 +35,7 @@ public class AuthController {
     public String login(@RequestBody User user) {
         Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
 
-        if (foundUser.isEmpty() || !passwordEncoder.matches(user.getPassword(), foundUser.get().getPassword())) {
+        if (foundUser.isEmpty() || !user.getPassword().equals(foundUser.get().getPassword())) {
             return "로그인 실패: 이메일 또는 비밀번호가 잘못되었습니다.";
         }
 
