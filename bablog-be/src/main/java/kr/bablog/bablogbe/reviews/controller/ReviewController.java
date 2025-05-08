@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.bablog.bablogbe.authentication.dto.LoginUser;
 import kr.bablog.bablogbe.common.api.response.ApiResponse;
 import kr.bablog.bablogbe.reviews.controller.dto.request.ReviewCommentUpdateWebRequest;
 import kr.bablog.bablogbe.reviews.controller.dto.request.ReviewCreateWebRequest;
@@ -24,6 +25,7 @@ import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewLookUpWebRespons
 import kr.bablog.bablogbe.reviews.controller.dto.response.ReviewLookUpWebResponses;
 import kr.bablog.bablogbe.reviews.service.ReviewService;
 import kr.bablog.bablogbe.reviews.service.dto.request.ReviewCommentUpdateRequest;
+import kr.bablog.bablogbe.reviews.service.dto.request.ReviewCreateServiceRequest;
 import kr.bablog.bablogbe.reviews.service.dto.response.ReviewCommentUpdateResponse;
 import kr.bablog.bablogbe.reviews.service.dto.response.ReviewCreateServiceResponse;
 import kr.bablog.bablogbe.reviews.service.dto.response.ReviewLookupResponses;
@@ -40,18 +42,28 @@ public class ReviewController {
 
 	@PostMapping("/reviews")
 	public ResponseEntity<ApiResponse<ReviewCreateWebResponse>> createReview(
+		final LoginUser loginUser,
 		@RequestBody final ReviewCreateWebRequest reviewCreateWebRequest) {
+		final ReviewCreateServiceRequest reviewCreateServiceRequest = new ReviewCreateServiceRequest(
+			reviewCreateWebRequest.getPostId(),
+			loginUser.userId(),
+			reviewCreateWebRequest.getComment(),
+			reviewCreateWebRequest.isReviewLike());
 
-		final ReviewCreateServiceResponse serviceResponse = reviewService.save(reviewCreateWebRequest);
+		final ReviewCreateServiceResponse serviceResponse = reviewService.save(reviewCreateServiceRequest);
 		final ReviewCreateWebResponse reviewCreateWebResponse = ReviewCreateWebResponse.from(serviceResponse);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(reviewCreateWebResponse));
 	}
 
 	@PatchMapping("/reviews/comment")
 	public ResponseEntity<ApiResponse<ReviewCommentUpdateWebResponse>> updateReviewComment(
+		LoginUser loginUser,
 		@RequestBody final ReviewCommentUpdateWebRequest reviewCreateWebRequest) {
-		ReviewCommentUpdateRequest reviewCommentUpdateRequest =
-			new ReviewCommentUpdateRequest(reviewCreateWebRequest.getReviewId(), reviewCreateWebRequest.getComment());
+
+		ReviewCommentUpdateRequest reviewCommentUpdateRequest = new ReviewCommentUpdateRequest(
+			reviewCreateWebRequest.getReviewId(),
+			reviewCreateWebRequest.getComment(),
+			loginUser.userId());
 
 		final ReviewCommentUpdateResponse reviewCommentUpdateResponse = reviewService.updateComment(
 			reviewCommentUpdateRequest);
