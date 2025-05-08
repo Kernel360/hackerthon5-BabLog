@@ -14,6 +14,7 @@ import kr.bablog.bablogbe.reviews.service.dto.response.ReviewLookupResponse;
 import kr.bablog.bablogbe.reviews.service.dto.response.ReviewLookupResponses;
 import kr.bablog.bablogbe.reviews.service.errors.ReviewErrorType;
 import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewExistException;
+import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewInvalidDeleteException;
 import kr.bablog.bablogbe.reviews.service.errors.exception.ReviewNotFoundException;
 import kr.bablog.bablogbe.reviews.service.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,15 +62,19 @@ public class ReviewService {
 	}
 
 	/**
-	 *
 	 * @param reviewId 삭제할 리뷰 아이디
+	 * @param aLong
 	 * @return 삭제한 리뷰 아이디 반환
 	 */
 	// TODO 본인이 작성한 리뷰에 한해서 삭제 기능 + 본인이 아닌 경우 예외 반환 로직 추가
 	@Transactional
-	public Long deleteReview(final Long reviewId) {
+	public Long deleteReview(final Long reviewId, final Long userId) {
 		final Review review = reviewRepository.findEntityById(reviewId)
 			.orElseThrow(() -> new ReviewNotFoundException(ReviewErrorType.REVIEW_NOT_FOUND));
+
+		if (!review.isAuthor(userId)) {
+			throw new ReviewInvalidDeleteException(ReviewErrorType.REVIEW_INVALID_DELETE);
+		}
 
 		reviewRepository.deleteById(review.getId());
 

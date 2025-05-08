@@ -75,4 +75,8 @@ public class Review {
 
 		this.comment = inputComment;
 	}
+
+	public boolean isAuthor(final Long userId) {
+		return this.userId.equals(userId);
+	}
 }
