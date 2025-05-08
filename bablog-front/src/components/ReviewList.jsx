@@ -31,6 +31,7 @@ const ReviewList = ({ reviews, currentUserEmail, onEdit, onDelete }) => {
             <div className="review-meta">
               <span className="review-email">{review.email}</span>
               <span className="review-date">{review.date}</span>
+              <span className="review-like">{review.like ? '👍' : ''}</span>
               {/* 본인 리뷰일 때만 버튼 표시 */}
               {review.email === currentUserEmail && editId !== review.id && (
                 <span>

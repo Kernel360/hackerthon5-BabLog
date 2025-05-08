@@ -17,11 +17,10 @@ public class Post {
     @Column(nullable = false)
     private String address;
 
-
     private String imgUrl;
 
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, columnDefinition = "timestamp")
     private LocalDateTime createdAt;
 
     public Long getId() {

@@ -19,25 +19,14 @@ function Login() {
         }
       );
 
-      const { token } = response.data;
+      const token = response.data.data.accessToken;
+
       localStorage.setItem("token", token);
-      navigate("/post");
+      navigate("/posts");
     } catch (error) {
       console.error("Login failed", error);
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
     }
-
-    // const response = await axios.post(
-    //   `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/auth/login`,
-    //   {
-    //     email,
-    //     password,
-    //   }
-    // );
-
-    // const { token } = response.data;
-    // localStorage.setItem("token", token);
-    // navigate("/post");
   }
 
   return (

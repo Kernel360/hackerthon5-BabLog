@@ -24,7 +24,7 @@ export default function App() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/signup`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/auth/signup`,
         {
           method: 'POST',
           headers: {
