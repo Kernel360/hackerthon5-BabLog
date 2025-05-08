@@ -7,7 +7,7 @@ public record ReviewLookUpWebResponse(Long reviewId, String comment, String emai
 		return new ReviewLookUpWebResponse(
 			reviewLookupResponse.reviewId(),
 			reviewLookupResponse.comment(),
-			"test@gmail.com", // TODO email 필드 주입 변경
+			reviewLookupResponse.email(),
 			reviewLookupResponse.like());
 	}
 }
