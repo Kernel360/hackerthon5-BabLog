@@ -8,7 +8,11 @@ spring:
       ddl-auto: create-drop
     defer-datasource-initialization: true
   datasource:
-    url: jdbc:mysql://localhost:3306/bablog_db
+    url: jdbc:mysql://localhost:3307/bablog_db
     username: root
     password: bablog2513
     driver-class-name: com.mysql.cj.jdbc.Driver
+jwt:
+  secret: mySecretKey1234
+  expiration: 3600000
+
