@@ -2,7 +2,8 @@ package kr.bablog.bablogbe.users.controller;
 
 import kr.bablog.bablogbe.common.api.response.ApiResponse;
 import kr.bablog.bablogbe.users.controller.dto.request.UserCreateWebRequest;
-import kr.bablog.bablogbe.users.domain.User;
+import kr.bablog.bablogbe.users.controller.dto.request.UserLoginWebRequest;
+import kr.bablog.bablogbe.users.controller.dto.response.LoginResponse;
 import kr.bablog.bablogbe.users.repository.UserRepository;
 import kr.bablog.bablogbe.users.service.UserService;
 import kr.bablog.bablogbe.users.util.JwtTokenUtil;
@@ -34,15 +35,12 @@ public class AuthController {
 
     // 로그인
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody UserLoginWebRequest userLoginWebRequest) {
+        String loginSuccessEmail = userService.login(userLoginWebRequest.getEmail(), userLoginWebRequest.getPassword());
+        String accessToken = jwtTokenUtil.createToken(loginSuccessEmail);
+        LoginResponse loginResponse = new LoginResponse(accessToken);
 
-        if (foundUser.isEmpty() || !user.getPassword().equals(foundUser.get().getPassword())) {
-            return "로그인 실패: 이메일 또는 비밀번호가 잘못되었습니다.";
-        }
-
-        String token = jwtTokenUtil.createToken(user.getEmail());
-        return "Bearer " + token;
+        return ResponseEntity.ok(ApiResponse.success(loginResponse));
     }
 
     // 로그아웃

@@ -1,5 +1,7 @@
 package kr.bablog.bablogbe.users.service;
 
+import kr.bablog.bablogbe.users.service.errors.exception.InvalidUserPassword;
+import kr.bablog.bablogbe.users.service.errors.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +24,17 @@ public class UserService {
 		}
 
 		userRepository.save(new User(email, password));
+	}
+
+	@Transactional
+	public String login(final String email, final String password) {
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new UserNotFoundException(UserErrorType.USER_NOT_FOUND));
+
+		if (!user.matchesPassword(password)) {
+			throw new InvalidUserPassword(UserErrorType.USER_INVALID_PASSWORD);
+		}
+
+		return user.getEmail();
 	}
 }
