@@ -10,7 +10,7 @@ const Detail = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/post/${postId}`)
+    fetch(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/post/${postId}`)
       .then(res => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
