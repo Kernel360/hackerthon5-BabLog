@@ -19,7 +19,8 @@ function Login() {
         }
       );
 
-      const { token } = response.data;
+      const token = response.data.data.accessToken;
+
       localStorage.setItem("token", token);
       navigate("/post");
     } catch (error) {

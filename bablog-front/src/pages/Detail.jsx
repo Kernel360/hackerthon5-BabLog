@@ -9,13 +9,18 @@ const Detail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log(`${postId}`)
     setLoading(true);
     fetch(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/post/${postId}`)
       .then(res => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
       })
-      .then(data => setDetailData(data))
+      .then(data => {
+        console.log(data)
+        setDetailData(data.data)
+        // console.log(detailData)
+      })
       .catch(() => {
         setDetailData({
           // 목업 데이터
@@ -25,6 +30,7 @@ const Detail = () => {
             'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
           postId: postId,
         });
+
         setError('데이터를 불러오지 못했습니다. (mock data)');
       })
       .finally(() => setLoading(false));

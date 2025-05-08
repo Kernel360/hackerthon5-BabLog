@@ -27,6 +27,8 @@ const ReviewSection = ({ postId }) => {
         { headers: { 'Content-Type': 'application/json' } },
       );
       const result = await res.json();
+      console.log(result)
+      console.log(result.data)
       if (result.result === 'SUCCESS' && result.data) {
         const reviewsWithDate = (result.data.reviews || []).map(r => ({
           ...r,
