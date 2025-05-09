@@ -31,18 +31,18 @@ INSERT INTO bablog_db.user (id, email, password) VALUES
                                                      (29, 'kernel29@gmail.com', '1234'),
                                                      (30, 'kernel30@gmail.com', '1234');
 
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 1, '서울특별시 강남구 역삼로3길 17-4 1층', 'http://127.0.01:8080/static/001.png', '칸나칼국수');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 2, '서울 강남구 역삼로3길 20-4', 'http://127.0.01:8080/static/002.jpeg', '농민백암순대');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 3, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 B-147,148,149호', 'http://127.0.01:8080/static/003.jpeg', '을밀대');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 4, '서울 강남구 강남대로84길 6 1층 1992덮밥&짜글이', 'http://127.0.01:8080/static/004.png', '1992 덮밥');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 5, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 B1 120호', 'http://127.0.01:8080/static/005.jpeg', '왓쇼이켄');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 6, '서울 강남구 강남대로94길 27 지상1층', 'http://127.0.01:8080/static/006.jpeg', '멘노아지');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 7, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 상가 1층 102호, 103호', 'http://127.0.01:8080/static/007.jpeg', '오토김밥');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 8, '서울 서초구 강남대로 421', 'http://127.0.01:8080/static/008.png', '쉐이크쉑 강남대로점');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 9, '주소9', 'http://127.0.01:8080/static/009.jpeg', '지미존스');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 10, '주소10', 'http://127.0.01:8080/static/010.jpeg', '안녕숯불');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 11, '주소11', 'http://127.0.01:8080/static/011.jpeg', '고쿠텐');
-insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 12, '주소12', 'http://127.0.01:8080/static/012.jpeg', '강남불백');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 1, '서울특별시 강남구 역삼로3길 17-4 1층', 'http://127.0.0.1:8080/static/001.png', '칸나칼국수');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 2, '서울 강남구 역삼로3길 20-4', 'http://127.0.0.1:8080/static/002.jpeg', '농민백암순대');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 3, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 B-147,148,149호', 'http://127.0.0.1:8080/static/003.jpeg', '을밀대');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 4, '서울 강남구 강남대로84길 6 1층 1992덮밥&짜글이', 'http://127.0.0.1:8080/static/004.png', '1992 덮밥');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 5, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 B1 120호', 'http://127.0.0.1:8080/static/005.jpeg', '왓쇼이켄');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 6, '서울 강남구 강남대로94길 27 지상1층', 'http://127.0.0.1:8080/static/006.jpeg', '멘노아지');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 7, '서울 강남구 테헤란로4길 46 쌍용플래티넘밸류 상가 1층 102호, 103호', 'http://127.0.0.1:8080/static/007.jpeg', '오토김밥');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 8, '서울 서초구 강남대로 421', 'http://127.0.0.1:8080/static/008.png', '쉐이크쉑 강남대로점');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 9, '서울특별시 강남구 강남대로 358 지상1층', 'http://127.0.0.1:8080/static/009.jpeg', '지미존스');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 10, '서울 강남구 테헤란로4길 31 1층', 'http://127.0.0.1:8080/static/010.jpeg', '안녕숯불');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 11, '서울 강남구 테헤란로4길 32 1층 고쿠텐', 'http://127.0.0.1:8080/static/011.jpeg', '고쿠텐');
+insert into post (created_at, id, address, img_url, title) values (CURRENT_TIMESTAMP, 12, '서울 강남구 강남대로78길 27', 'http://127.0.0.1:8080/static/012.jpeg', '강남불백');
 
 INSERT INTO review (review_like, created_at, id, modified_at, post_id, user_id, comment) VALUES
                                                                                              (1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP, 1, 1, 'comment01'),
