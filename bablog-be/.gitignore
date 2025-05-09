@@ -35,3 +35,25 @@ out/
 
 ### VS Code ###
 .vscode/
+# MacOS 시스템 파일
+.DS_Store
+
+# IntelliJ IDEA 관련 파일
+.idea/
+
+# 로그 파일 및 임시 파일
+
+*.log
+*.tmp
+
+# 빌드 폴더
+/build/
+
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore and remove ignored files"
+
+
+
+
+
