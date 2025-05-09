@@ -3,10 +3,57 @@
 
 ## 📝 Summary
 
-- 프로젝트명 : Bab-Log
+- ### 프로젝트명 : Bab-Log
 - 프로젝트 주제 : 미왕빌딩 근처 맛집 조회 및 리뷰 등록 플랫폼
 - 프로젝트 기간 : 2025. 05. 07 ~ 2025. 05 .09
-- 프로젝트 목표 : 
+- 배포링크 : <http://43.200.63.186/>
+
+
+</br>
+
+## 🚀 주요 기능 
+
+  - JWT 기반 사용자 인증 (회원가입, 로그인/로그아웃)
+ 
+    - 로그인
+   
+      토큰 기반으로 인증 관리 (Interceptor)
+      
+      로그인 성공 시 리뷰 작성시에 인증 토큰 기반 인증 진행
+
+
+    - 로그아웃
+
+      클라이언트에서 토큰 삭제 (혹은 서버에 Refresh 토큰 블랙리스트 등록
+      
+  - 리뷰(댓글) CRUD 기능
+
+    - 맛집 리뷰 목록
+      
+      offset 페이징 기반 목록 조회
+
+      좋아요 갯수, 댓글 갯수 조회
+
+    - 리뷰 생성
+
+      리뷰 생성 시 좋아요 추가 기능
+
+
+    - 리뷰 코멘트 수정
+
+      본인에 한해 리뷰 수정 가능
+
+    - 리뷰 삭제
+
+      본인에 한해 리뷰 수정 가능
+
+  - 맛집 정보 조회 기능
+
+    - 식당 목록 조회
+
+      offset 페이징 기반 목록 조회
+
+    - 식당 상세 조회
 
 </br>
 
@@ -42,6 +89,11 @@
 
 </br>
 
+## ⛓️ 시스템 아키텍처
+![image](https://cdn.discordapp.com/attachments/1369468548518514778/1370336052447019048/babLog_architecture_end.png?ex=681f2066&is=681dcee6&hm=a22c7ef44b97ec74d6dec223a8fad6639e5fd0d09256a3daeeccb15f23bed33e&)
+
+</br>
+
 ## 📦 기술 스택 (Tech Stack)
 
 ### 🛠 Backend
@@ -58,7 +110,8 @@
 
 ### 🚀 Deployment
 ![image](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+<img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
+<img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white">
 
 ---
 ### 🛀 ETC
