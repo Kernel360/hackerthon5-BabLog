@@ -25,10 +25,10 @@ public class PostController {
 
     @GetMapping("/posts")
     public ApiResponse<PostListResponseDto> getPostList(
-            @RequestParam(value = "offset", defaultValue = "0") int offset
-        , @RequestParam(value = "limit", defaultValue = "9") int limit) {
+            @RequestParam(value = "offset", defaultValue = "0") Long offset
+        , @RequestParam(value = "limit", defaultValue = "9") Long limit) {
 
-        Page<Post> postPage = this.postService.getPostList(offset, limit);
+        Page<Post> postPage = this.postService.getPostList(offset.intValue(), limit.intValue());
 
         //todo: builder패턴으로
         List<PostResponseDto> postListDto = postPage.getContent().stream()
