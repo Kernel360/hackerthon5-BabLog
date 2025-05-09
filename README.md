@@ -22,7 +22,7 @@
   </tr>
   <tr>
     <td><img src="https://avatars.githubusercontent.com/u/48561660?v=4" width="150" height="150" alt="박병기"></td>
-    <td><img src="https://avatars.githubusercontent.com/u/50363541?v=4" width="150" height="150" alt="이소은"></td>
+    <td><img src="https://avatars.githubusercontent.com/u/166477004?v=4" width="150" height="150" alt="이소은"></td>
     <td><img src="https://avatars.githubusercontent.com/u/133865673?v=4" width="150" height="150" alt="임재현"></td>
     <td><img src="https://avatars.githubusercontent.com/u/110217121?v=4" width="150" height="150" alt="안지현"></td>
     <td><img src="https://avatars.githubusercontent.com/u/101615063?v=4" width="150" height="150" alt="김선영"></td>
